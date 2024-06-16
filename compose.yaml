@@ -1,0 +1,6 @@
+services:
+  athlonix-serv:
+    build:
+      dockerfile: ./Dockerfile
+    ports:
+      - "3005:3005"
