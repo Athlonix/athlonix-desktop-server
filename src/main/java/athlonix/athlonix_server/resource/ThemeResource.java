@@ -28,7 +28,6 @@ public class ThemeResource {
     public ResponseEntity<Resource> downloadTheme(@PathVariable("theme") String theme) throws IOException {
         String themeFile = theme + ".css";
         Path filePath = get(THEME_DIRECTORY).toAbsolutePath().normalize().resolve(themeFile);
-        System.out.println(filePath);
         if(!Files.exists(filePath)) {
             throw new FileNotFoundException(theme + " file not found");
         }
