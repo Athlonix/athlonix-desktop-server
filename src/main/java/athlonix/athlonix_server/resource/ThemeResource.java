@@ -1,6 +1,8 @@
 package athlonix.athlonix_server.resource;
 
 import athlonix.athlonix_server.model.Theme;
+import athlonix.athlonix_server.repository.ThemeRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -23,13 +25,30 @@ import static java.nio.file.Paths.get;
 @RestController
 @RequestMapping("/theme")
 public class ThemeResource {
+    private static final String THEME_DIRECTORY = "./themes";
+    private static final String THEME_IMAGE_DIRECTORY = "./themes_images";
 
-    public static final String THEME_DIRECTORY = "./themes";
 
     @GetMapping
-    public List<Theme> getThemes() {
-
+    public List<Theme> getThemes() throws IOException {
+        ThemeRepository themeRepository = new ThemeRepository();
+        return themeRepository.getAllThemes();
     }
+
+    @GetMapping("/image/{theme}")
+    public void getThemeImage(HttpServletResponse response, @PathVariable("theme") String theme) throws IOException {
+        String themeImagePath = theme + ".png";
+        Path imageFilePath = get(THEME_IMAGE_DIRECTORY).toAbsolutePath().normalize().resolve(themeImagePath);
+        if(!Files.exists(imageFilePath)) {
+            throw new FileNotFoundException(theme + " file not found");
+        }
+
+        Resource imageResource = new UrlResource(imageFilePath.toUri());
+
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+        imageResource.getInputStream().transferTo(response.getOutputStream());
+    }
+
     @GetMapping("{theme}")
     public ResponseEntity<Resource> downloadTheme(@PathVariable("theme") String theme) throws IOException {
         String themeFile = theme + ".css";

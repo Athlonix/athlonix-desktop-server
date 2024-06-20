@@ -14,8 +14,9 @@ import static java.nio.file.Paths.get;
 public class ThemeRepository {
 
     public static final String THEME_DIRECTORY = "./themes";
-    private List<Theme> themes;
-    ThemeRepository() throws IOException {
+    private final List<Theme> themes = new ArrayList<>();
+
+    public ThemeRepository() throws IOException {
         List<String> themesNames = List.of("cupertino-dark","cupertino-light","dracula","global","nord-dark","nord-light","primer-dark");
 
         for (String themeName: themesNames) {
@@ -25,7 +26,7 @@ public class ThemeRepository {
             String formatedSize = formatFileSize(size);
             Theme currentTheme = new Theme(themeName,formatedSize);
 
-            themes.add(currentTheme);
+            this.themes.add(currentTheme);
         }
 
     }
