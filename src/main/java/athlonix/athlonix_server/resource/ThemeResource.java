@@ -1,5 +1,6 @@
 package athlonix.athlonix_server.resource;
 
+import athlonix.athlonix_server.model.Theme;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static java.nio.file.Paths.get;
 
@@ -24,6 +26,10 @@ public class ThemeResource {
 
     public static final String THEME_DIRECTORY = "./themes";
 
+    @GetMapping
+    public List<Theme> getThemes() {
+
+    }
     @GetMapping("{theme}")
     public ResponseEntity<Resource> downloadTheme(@PathVariable("theme") String theme) throws IOException {
         String themeFile = theme + ".css";
