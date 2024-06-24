@@ -17,7 +17,7 @@ public class ThemeRepository {
     private final List<Theme> themes = new ArrayList<>();
 
     public ThemeRepository() throws IOException {
-        List<String> themesNames = List.of("cupertino-dark","cupertino-light","dracula","global","nord-dark","nord-light","primer-dark");
+        List<String> themesNames = List.of("cupertino-dark","cupertino-light","dracula","nord-dark","nord-light","primer-dark","primer-light");
 
         for (String themeName: themesNames) {
             String themeFile = themeName + ".css";
@@ -34,6 +34,7 @@ public class ThemeRepository {
     public List<Theme> getAllThemes() {
         return themes;
     }
+    
     private String formatFileSize(long size) {
         if (size < 1024) {
             return size + " B";
