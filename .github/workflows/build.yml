@@ -21,7 +21,7 @@ env:
     FORCE_COLOR: 1
 
 jobs:
-    admin:
+    build:
         runs-on: ubuntu-latest
         timeout-minutes: 10
 
@@ -68,7 +68,7 @@ jobs:
                 builder: ${{ steps.buildx.outputs.name }}
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
-                push: false
+                push: true
                 tags: ${{ steps.docker_meta.outputs.tags }}
                 labels: ${{ steps.docker_meta.outputs.labels }}
                 provenance: true
