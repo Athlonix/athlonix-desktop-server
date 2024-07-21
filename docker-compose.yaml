@@ -4,3 +4,8 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8085:8085"
+    volumes:
+      - ./themes_images:/app/themes_images
+      - ./themes:/app/themes
+      - ./plugins:/app/plugins
+      - ./desktop_versions:/app/desktop_versions
